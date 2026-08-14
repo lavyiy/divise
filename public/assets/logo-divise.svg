@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>divise</title>
+  <defs>
+    <linearGradient id="divise-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B8CFF"/>
+      <stop offset="100%" stop-color="#0044D6"/>
+    </linearGradient>
+    <linearGradient id="divise-bars" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#BFDCFF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Contenedor azul brillante estilo app icon -->
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#divise-bg)"/>
+  <rect x="8" y="8" width="496" height="250" rx="112" fill="#FFFFFF" opacity="0.06"/>
+
+  <!-- Gráfico de barras ascendente -->
+  <rect x="120" y="286" width="52" height="110" rx="16" fill="url(#divise-bars)"/>
+  <rect x="188" y="246" width="52" height="150" rx="16" fill="url(#divise-bars)"/>
+  <rect x="256" y="196" width="52" height="200" rx="16" fill="url(#divise-bars)"/>
+  <rect x="324" y="146" width="52" height="250" rx="16" fill="url(#divise-bars)"/>
+
+  <!-- Flecha ascendente a la derecha -->
+  <line x1="168" y1="300" x2="340" y2="128" stroke="#FFFFFF" stroke-width="26" stroke-linecap="round"/>
+  <polygon points="287,182 325,145 340,130" fill="#FFFFFF"/>
+
+  <!-- 5 círculos semitransparentes de la base -->
+  <g fill="#FFFFFF" fill-opacity="0.16">
+    <circle cx="90" cy="430" r="34"/>
+    <circle cx="168" cy="430" r="34"/>
+    <circle cx="246" cy="430" r="34"/>
+    <circle cx="324" cy="430" r="34"/>
+    <circle cx="402" cy="430" r="34"/>
+  </g>
+
+  <!-- Símbolos: $ · tendencia · B · ETH · lingote -->
+  <g fill="#FFFFFF">
+    <text x="90" y="441" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" text-anchor="middle">$</text>
+    <polyline points="146,448 158,428 170,438 186,412" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="246" y="441" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" text-anchor="middle">B</text>
+    <polygon points="324,408 352,430 324,452 296,430" fill="#FFFFFF"/>
+    <rect x="378" y="414" width="48" height="32" rx="7" fill="#FFFFFF"/>
+  </g>
+</svg>

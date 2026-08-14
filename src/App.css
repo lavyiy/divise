@@ -1,0 +1,23 @@
+/* ── App.css ────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top center, #0c1629 0%, var(--bg-dark) 100%);
+  color: var(--text-main);
+}
+
+.app__main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem;
+  animation: fadeIn var(--transition-slow) forwards;
+}
+
+@media (max-width: 600px) {
+  .app__main { padding: 1.2rem 1rem 2rem; }
+}
