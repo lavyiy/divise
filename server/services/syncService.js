@@ -67,20 +67,12 @@ async function updateRate(client, divisaCodigo, tipoMercado, compra, venta) {
   if (divisaRes.rows.length === 0) return;
   const idDivisa = divisaRes.rows[0].id_divisa;
   
-  // 2. Update existing or insert new
-  const res = await client.query(`
-    UPDATE tipos_de_cambio 
-    SET precio_compra = $1, precio_venta = $2, fecha_actualizacion = CURRENT_TIMESTAMP
-    WHERE id_divisa = $3 AND tipo_mercado = $4
-    RETURNING id_tipo_cambio
-  `, [compra, venta, idDivisa, tipoMercado]);
-  
-  if (res.rows.length === 0) {
-    await client.query(`
-      INSERT INTO tipos_de_cambio (id_divisa, precio_compra, precio_venta, tipo_mercado)
-      VALUES ($1, $2, $3, $4)
-    `, [idDivisa, compra, venta, tipoMercado]);
-  }
+  // 2. Insertar una fila nueva por ciclo para preservar el historial
+  //    (permite calcular variación real y alimentar los gráficos)
+  await client.query(`
+    INSERT INTO tipos_de_cambio (id_divisa, precio_compra, precio_venta, tipo_mercado)
+    VALUES ($1, $2, $3, $4)
+  `, [idDivisa, compra, venta, tipoMercado]);
 }
 
 module.exports = { syncRates };

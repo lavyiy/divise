@@ -19,11 +19,13 @@ async function checkAlerts() {
     
     if (alertasRes.rows.length === 0) return;
     
-    // Obtenemos precios actuales
+    // Obtenemos precios actuales (solo la última cotización por divisa/mercado)
     const ratesRes = await pool.query(`
-      SELECT d.codigo, tc.tipo_mercado, tc.precio_venta 
+      SELECT DISTINCT ON (d.codigo, tc.tipo_mercado)
+             d.codigo, tc.tipo_mercado, tc.precio_venta
       FROM tipos_de_cambio tc
       JOIN divisas d ON tc.id_divisa = d.id_divisa
+      ORDER BY d.codigo, tc.tipo_mercado, tc.fecha_actualizacion DESC, tc.id_tipo_cambio DESC
     `);
     
     // Armamos un mapa rápido de precios (usando codigo_MERCADO o solo codigo para cripto)

@@ -2,20 +2,14 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../config/db');
 const { verifyToken } = require('../middlewares/authMiddleware');
+const favoritesService = require('../services/favoritesService');
 
 router.use(verifyToken);
 
-// GET /api/favorites
+// GET /api/favorites — favoritos con última cotización y variación (Q02)
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT d.codigo 
-       FROM favoritos f
-       JOIN divisas d ON f.id_divisa = d.id_divisa
-       WHERE f.id_usuario = $1`,
-      [req.user.id_usuario]
-    );
-    const favorites = result.rows.map(r => r.codigo);
+    const favorites = await favoritesService.getFavoritesWithRates(req.user.id_usuario);
     res.json(favorites);
   } catch (error) {
     console.error('Error fetching favorites:', error);
