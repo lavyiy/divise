@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchRates } from '../../services/api';
 import { Icon } from '../../components/ui/Icon';
 import Sparkline from '../../components/ui/Sparkline';
@@ -17,6 +18,7 @@ const isCrypto = (r) =>
   ['BTC', 'ETH', 'USDT', 'USDC'].includes(r.codigo);
 
 export default function Divisas() {
+  const navigate = useNavigate();
   const [rates, setRates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -120,7 +122,16 @@ export default function Divisas() {
             const seed = hashSeed(d.codigo, d.tipo_mercado || d.tipo || 'x');
 
             return (
-              <div className="divisa-card stagger" key={`${d.codigo}-${d.tipo_mercado}-${i}`} style={{ '--i': i }}>
+              <div
+                className="divisa-card stagger"
+                key={`${d.codigo}-${d.tipo_mercado}-${i}`}
+                style={{ '--i': i }}
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(`/dashboard/graficos?moneda=${encodeURIComponent(d.codigo)}&mercado=${encodeURIComponent(d.tipo_mercado || d.tipo || '')}`)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/dashboard/graficos?moneda=${encodeURIComponent(d.codigo)}&mercado=${encodeURIComponent(d.tipo_mercado || d.tipo || '')}`); }}
+                title="Ver gráfico"
+              >
                 <div className="dc-header">
                   <div className="dc-identity">
                     <div className="dc-icon">{currencyIcon(d.codigo)}</div>
@@ -129,7 +140,11 @@ export default function Divisas() {
                       <span className="dc-name">{d.nombre}</span>
                     </div>
                   </div>
-                  <button className="dc-fav-btn" title="Agregar a favoritos">
+                  <button
+                    className="dc-fav-btn"
+                    title="Agregar a favoritos"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <Icon name="star" size={17} />
                   </button>
                 </div>

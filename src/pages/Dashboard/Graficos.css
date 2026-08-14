@@ -298,6 +298,36 @@
   font-size: 12.5px;
   font-weight: 700;
 }
+.cbb-change-badge.down {
+  color: var(--danger);
+  background: rgba(240, 71, 71, 0.15);
+  border: 1px solid rgba(240, 71, 71, 0.3);
+}
+.ssc-value.up { color: var(--success); }
+.ssc-value.down { color: var(--danger); }
+
+.chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  gap: 10px;
+}
+.chart-loading::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(240, 185, 11, 0.3);
+  border-top-color: var(--brand-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 .key-metrics-grid {
   display: flex;

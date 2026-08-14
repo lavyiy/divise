@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { fetchRates } from '../../services/api';
 import CountUp from 'react-countup';
 import { Icon } from '../../components/ui/Icon';
@@ -40,6 +40,7 @@ const KPI_CARDS = [
 ];
 
 export default function Inicio() {
+  const navigate = useNavigate();
   const [rates, setRates] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -102,6 +103,11 @@ export default function Inicio() {
               className="stat-card stagger"
               key={kpi.seed}
               style={{ '--i': i }}
+              role="button"
+              tabIndex={0}
+              onClick={() => navigate(`/dashboard/graficos?moneda=${encodeURIComponent(kpi.code)}&mercado=${encodeURIComponent(kpi.market || '')}`)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/dashboard/graficos?moneda=${encodeURIComponent(kpi.code)}&mercado=${encodeURIComponent(kpi.market || '')}`); }}
+              title="Ver gráfico"
             >
               <div className="sc-header">
                 <span className="sc-title">{kpi.title}</span>
@@ -151,7 +157,15 @@ export default function Inicio() {
               const variation = stableVariation(hashSeed(item.codigo, item.tipo_mercado || item.tipo || 'x'));
               const isUp = variation >= 0;
               return (
-                <div className="featured-row" key={`${item.codigo}-${item.tipo_mercado}-${i}`}>
+                <div
+                  className="featured-row"
+                  key={`${item.codigo}-${item.tipo_mercado}-${i}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => navigate(`/dashboard/graficos?moneda=${encodeURIComponent(item.codigo)}&mercado=${encodeURIComponent(item.tipo_mercado || '')}`)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/dashboard/graficos?moneda=${encodeURIComponent(item.codigo)}&mercado=${encodeURIComponent(item.tipo_mercado || '')}`); }}
+                  title="Ver gráfico"
+                >
                   <div className="fr-main">
                     <span className="fr-icon">{currencyIcon(item.codigo)}</span>
                     <div className="fr-info">

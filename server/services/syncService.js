@@ -35,16 +35,16 @@ async function syncRates() {
       await updateRate(client, 'EUR', 'Oficial', euro.compra, euro.venta);
     }
     
-    // 3. Fetch CoinGecko (BTC, ETH in USD)
-    const cryptoRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+    // 3. Fetch CoinGecko (BTC, ETH en ARS, consistente con el resto de las cotizaciones)
+    const cryptoRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=ars');
     if (cryptoRes.ok) {
       const cryptos = await cryptoRes.json();
       
-      if (cryptos.bitcoin?.usd) {
-        await updateRate(client, 'BTC', 'Cripto', cryptos.bitcoin.usd, cryptos.bitcoin.usd * 1.01);
+      if (cryptos.bitcoin?.ars) {
+        await updateRate(client, 'BTC', 'Cripto', cryptos.bitcoin.ars, cryptos.bitcoin.ars * 1.01);
       }
-      if (cryptos.ethereum?.usd) {
-        await updateRate(client, 'ETH', 'Cripto', cryptos.ethereum.usd, cryptos.ethereum.usd * 1.01);
+      if (cryptos.ethereum?.ars) {
+        await updateRate(client, 'ETH', 'Cripto', cryptos.ethereum.ars, cryptos.ethereum.ars * 1.01);
       }
     }
     

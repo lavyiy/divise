@@ -12,9 +12,20 @@ const AuthContext = createContext(null);
 const STORAGE_TOKEN = 'divise_token';
 const STORAGE_USER  = 'divise_user';
 
+function isValidJwt(token) {
+  // Un JWT real tiene 3 segmentos separados por "."
+  return typeof token === 'string' && token.split('.').length === 3;
+}
+
 function readStorage() {
   try {
     const token = localStorage.getItem(STORAGE_TOKEN);
+    // Si el token no es un JWT válido (ej: el viejo mock), se descarta
+    if (!token || !isValidJwt(token)) {
+      localStorage.removeItem(STORAGE_TOKEN);
+      localStorage.removeItem(STORAGE_USER);
+      return { token: null, user: null };
+    }
     const raw   = localStorage.getItem(STORAGE_USER);
     const user  = raw ? JSON.parse(raw) : null;
     return { token, user };
