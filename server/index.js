@@ -36,14 +36,19 @@ app.get('/', (req, res) => {
   res.send('Divise API Running');
 });
 
+// Health check para Render
+app.get('/healthz', (req, res) => {
+  res.status(200).send('ok');
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   
-  // Ejecutar primera sincronización al iniciar el servidor
-  await syncRates();
+  // Ejecutar primera sincronización al iniciar el servidor (sin que un error tire el proceso)
+  syncRates().catch(err => console.error('Error en primera sincronización:', err.message));
   
   // Ejecutar sincronización cada 5 minutos (300,000 ms)
-  setInterval(syncRates, 5 * 60 * 1000);
+  setInterval(() => syncRates().catch(err => console.error('Error en sincronización:', err.message)), 5 * 60 * 1000);
 });

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: divise
+    runtime: node
+    rootDir: server
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    preDeployCommand: node migrate.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
