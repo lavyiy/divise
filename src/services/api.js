@@ -10,7 +10,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'ht
  */
 async function request(path, options = {}) {
   try {
-    const res = await fetch(`${BASE_URL}${path}`, {
+    const res = await fetch(`${BASE_URL}/api${path}`, {
       headers: { 'Content-Type': 'application/json', ...options.headers },
       ...options,
     });
