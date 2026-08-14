@@ -31,10 +31,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-main);
-  letter-spacing: -0.3px;
   text-decoration: none;
   transition: opacity var(--transition-fast);
 }
@@ -43,16 +39,13 @@
   opacity: 0.85;
 }
 
-.nav-logo-icon {
-  width: 34px;
-  height: 34px;
+.nav-logo-img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
   border-radius: 10px;
-  background: linear-gradient(135deg, #ffd233, #e6a800);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0a1121;
-  box-shadow: 0 4px 14px rgba(240, 185, 11, 0.35);
+  border: 1px solid rgba(240, 185, 11, 0.4);
+  box-shadow: 0 4px 14px rgba(240, 185, 11, 0.25);
 }
 
 .nav-logo-dot {

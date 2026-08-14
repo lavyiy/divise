@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Icon } from '../ui/Icon';
+import logo from '../../assets/logo.jpg';
 import './DashboardLayout.css';
 
 const NAV_ITEMS = [
@@ -31,12 +32,7 @@ export default function DashboardLayout() {
       <nav className="dashboard-nav">
         <div className="nav-left">
           <Link to="/dashboard" className="nav-logo" aria-label="Ir al inicio">
-            <span className="nav-logo-icon">
-              <Icon name="spark" size={17} />
-            </span>
-            <span className="nav-logo-text">
-              divise<span className="nav-logo-dot">.</span>
-            </span>
+            <img src={logo} alt="divise" className="nav-logo-img" />
           </Link>
           <button
             className="nav-mobile-toggle"
