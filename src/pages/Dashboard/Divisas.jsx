@@ -2,27 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchRates } from '../../services/api';
 import { Icon } from '../../components/ui/Icon';
+import { CurrencyIcon } from '../../components/ui/CurrencyIcon';
 import Sparkline from '../../components/ui/Sparkline';
-import { stableVariation, formatARS, currencyIcon, hashSeed } from '../../utils';
+import { stableVariation, formatARS, hashSeed } from '../../utils';
 import './Divisas.css';
 
 const CATEGORIES = [
-  { id: 'todos', label: 'Todos', icon: 'wallet' },
-  { id: 'divisas', label: 'Divisas', icon: 'dollar' },
+  { id: 'dolares', label: 'Dólares', icon: 'dollar' },
+  { id: 'forex', label: 'Forex', icon: 'wallet' },
   { id: 'cripto', label: 'Cripto', icon: 'spark' },
 ];
+
+const CRYPTO_CODES = ['BTC', 'ETH', 'SOL', 'USDT', 'BNB'];
 
 const isCrypto = (r) =>
   r.tipo_mercado === 'Cripto' ||
   r.tipo === 'Cripto' ||
-  ['BTC', 'ETH', 'USDT', 'USDC'].includes(r.codigo);
+  CRYPTO_CODES.includes(r.codigo);
 
 export default function Divisas() {
   const navigate = useNavigate();
   const [rates, setRates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('todos');
+  const [category, setCategory] = useState('dolares');
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -50,8 +53,13 @@ export default function Divisas() {
       r.nombre.toLowerCase().includes(search.toLowerCase()) ||
       r.codigo.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
-      category === 'todos' ||
-      (category === 'cripto' ? isCrypto(r) : !isCrypto(r));
+      category === 'dolares'
+        ? r.codigo === 'USD'
+        : category === 'forex'
+          ? r.codigo !== 'USD' && !isCrypto(r)
+          : category === 'cripto'
+            ? isCrypto(r)
+            : true;
     return matchesSearch && matchesCategory;
   });
 
@@ -115,7 +123,7 @@ export default function Divisas() {
       ) : (
         <div className="divisas-grid">
           {filteredRates.map((d, i) => {
-            const variation = stableVariation(
+            const variation = d.variacion ?? stableVariation(
               hashSeed(d.codigo, d.tipo_mercado || d.tipo || 'x')
             );
             const isUp = variation >= 0;
@@ -134,7 +142,9 @@ export default function Divisas() {
               >
                 <div className="dc-header">
                   <div className="dc-identity">
-                    <div className="dc-icon">{currencyIcon(d.codigo)}</div>
+                    <div className="dc-icon">
+                      <CurrencyIcon code={d.codigo} size={24} />
+                    </div>
                     <div className="dc-names">
                       <span className="dc-code">{d.codigo}</span>
                       <span className="dc-name">{d.nombre}</span>

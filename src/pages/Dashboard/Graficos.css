@@ -316,8 +316,7 @@
   font-size: 14px;
   gap: 10px;
 }
-.chart-loading::before {
-  content: '';
+.chart-loading-spinner {
   width: 18px;
   height: 18px;
   border: 2px solid rgba(240, 185, 11, 0.3);
@@ -328,6 +327,22 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.chart-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--danger);
+  font-size: 14px;
+  text-align: center;
+  padding: 24px;
+}
+.chart-error svg { opacity: 0.85; }
+.chart-error p { max-width: 420px; }
 
 .key-metrics-grid {
   display: flex;

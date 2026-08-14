@@ -1,6 +1,9 @@
 // ── src/utils.js ─────────────────────────────────────────────────────────────
 // Utilidades compartidas: formateo y variaciones determinísticas.
 
+import React from 'react';
+import { CurrencyIcon } from './components/ui/CurrencyIcon';
+
 function mulberry32(seed) {
   let a = seed >>> 0;
   return function () {
@@ -26,40 +29,14 @@ export function formatARS(value, decimals = 2) {
   });
 }
 
-/** Icono/emoji representativo por código de moneda. */
+/** Icono SVG representativo por código de moneda (isotipo financiero). */
 export function currencyIcon(codigo) {
-  switch (codigo) {
-    case 'USD': return '💵';
-    case 'EUR': return '💶';
-    case 'BRL': return '🇧🇷';
-    case 'UYU': return '🇺🇾';
-    case 'CLP': return '🇨🇱';
-    case 'GBP': return '🇬🇧';
-    case 'JPY': return '🇯🇵';
-    case 'CAD': return '🇨🇦';
-    case 'CHF': return '🇨🇭';
-    case 'AUD': return '🇦🇺';
-    case 'BTC': return '₿';
-    case 'ETH': return 'Ξ';
-    default: return '💰';
-  }
+  return React.createElement(CurrencyIcon, { code: codigo, size: 22 });
 }
 
-/** Bandera/emoji por código de moneda (para selects y conversiones). */
+/** Ícono SVG por código de moneda (para selects y conversiones). */
 export function flagIcon(code) {
-  switch (code) {
-    case 'USD': return '🇺🇸';
-    case 'ARS': return '🇦🇷';
-    case 'EUR': return '🇪🇺';
-    case 'BRL': return '🇧🇷';
-    case 'GBP': return '🇬🇧';
-    case 'JPY': return '🇯🇵';
-    case 'CAD': return '🇨🇦';
-    case 'CHF': return '🇨🇭';
-    case 'AUD': return '🇦🇺';
-    case 'BTC': return '₿';
-    default: return '💰';
-  }
+  return React.createElement(CurrencyIcon, { code: code, size: 18 });
 }
 
 /** Nombre legible por código de moneda. */
@@ -76,6 +53,9 @@ export function currencyName(code) {
     case 'AUD': return 'Dólar Australiano';
     case 'BTC': return 'Bitcoin';
     case 'ETH': return 'Ethereum';
+    case 'SOL': return 'Solana';
+    case 'USDT': return 'Tether';
+    case 'BNB': return 'BNB';
     default: return code;
   }
 }

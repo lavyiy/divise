@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../../components/ui/Icon';
+import { CurrencyIcon } from '../../components/ui/CurrencyIcon';
 import './Historial.css';
 
 export default function Historial() {
@@ -8,15 +9,15 @@ export default function Historial() {
 
   // Mock initial query history dataset strictly following wireframe Image 2
   const [historyList, setHistoryList] = useState([
-    { id: 1, fecha: '31/07/2024', hora: '10:15', codigo: 'USD', nombre: 'Dólar Estadounidense', flag: '🇺🇸', precio: 1213.50 },
-    { id: 2, fecha: '30/07/2024', hora: '19:42', codigo: 'EUR', nombre: 'Euro', flag: '🇪🇺', precio: 1423.80 },
-    { id: 3, fecha: '30/07/2024', hora: '09:25', codigo: 'BRL', nombre: 'Real Brasileño', flag: '🇧🇷', precio: 234.10 },
-    { id: 4, fecha: '29/07/2024', hora: '19:34', codigo: 'GBP', nombre: 'Libra Esterlina', flag: '🇬🇧', precio: 1677.90 },
-    { id: 5, fecha: '28/07/2024', hora: '11:11', codigo: 'JPY', nombre: 'Yen Japonés', flag: '🇯🇵', precio: 33.14 },
-    { id: 6, fecha: '28/07/2024', hora: '21:33', codigo: 'ARS', nombre: 'Peso Argentino', flag: '🇦🇷', precio: 1.00 },
-    { id: 7, fecha: '26/07/2024', hora: '17:35', codigo: 'CAD', nombre: 'Dólar Canadiense', flag: '🇨🇦', precio: 55.00 },
-    { id: 8, fecha: '15/07/2024', hora: '16:42', codigo: 'CHF', nombre: 'Franco Suizo', flag: '🇨🇭', precio: 37.10 },
-    { id: 9, fecha: '13/07/2024', hora: '18:25', codigo: 'AUD', nombre: 'Dólar Australiano', flag: '🇦🇺', precio: 1433.00 }
+    { id: 1, fecha: '31/07/2024', hora: '10:15', codigo: 'USD', nombre: 'Dólar Estadounidense', flag: 'USD', precio: 1213.50 },
+    { id: 2, fecha: '30/07/2024', hora: '19:42', codigo: 'EUR', nombre: 'Euro', flag: 'EUR', precio: 1423.80 },
+    { id: 3, fecha: '30/07/2024', hora: '09:25', codigo: 'BRL', nombre: 'Real Brasileño', flag: 'BRL', precio: 234.10 },
+    { id: 4, fecha: '29/07/2024', hora: '19:34', codigo: 'GBP', nombre: 'Libra Esterlina', flag: 'GBP', precio: 1677.90 },
+    { id: 5, fecha: '28/07/2024', hora: '11:11', codigo: 'JPY', nombre: 'Yen Japonés', flag: 'JPY', precio: 33.14 },
+    { id: 6, fecha: '28/07/2024', hora: '21:33', codigo: 'ARS', nombre: 'Peso Argentino', flag: 'ARS', precio: 1.00 },
+    { id: 7, fecha: '26/07/2024', hora: '17:35', codigo: 'CAD', nombre: 'Dólar Canadiense', flag: 'CAD', precio: 55.00 },
+    { id: 8, fecha: '15/07/2024', hora: '16:42', codigo: 'CHF', nombre: 'Franco Suizo', flag: 'CHF', precio: 37.10 },
+    { id: 9, fecha: '13/07/2024', hora: '18:25', codigo: 'AUD', nombre: 'Dólar Australiano', flag: 'AUD', precio: 1433.00 }
   ]);
 
   const [startDate, setStartDate] = useState('2024-07-01');
@@ -170,7 +171,7 @@ export default function Historial() {
                   </td>
                   <td>
                     <div className="currency-info">
-                      <span className="flag-icon">{item.flag}</span>
+                      <span className="flag-icon"><CurrencyIcon code={item.flag} size={22} /></span>
                       <div className="currency-text">
                         <span className="currency-code">{item.codigo}</span>
                         <span className="currency-name">{item.nombre}</span>

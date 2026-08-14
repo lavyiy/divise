@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../../components/ui/Icon';
+import { CurrencyIcon } from '../../components/ui/CurrencyIcon';
 import Sparkline from '../../components/ui/Sparkline';
 import { stableVariation, hashSeed } from '../../utils';
 import './Favoritos.css';
@@ -10,15 +11,15 @@ export default function Favoritos() {
 
   // Mock list of initial favorites according to wireframe prototype
   const [favoritesList, setFavoritesList] = useState([
-    { id: 1, codigo: 'USD', nombre: 'Dólar Estadounidense', flag: '🇺🇸', precio: 1315.50, isFav: true },
-    { id: 2, codigo: 'EUR', nombre: 'Euro', flag: '🇪🇺', precio: 1423.80, isFav: true },
-    { id: 3, codigo: 'BRL', nombre: 'Real Brasileño', flag: '🇧🇷', precio: 234.10, isFav: true },
-    { id: 4, codigo: 'GBP', nombre: 'Libra Esterlina', flag: '🇬🇧', precio: 1677.00, isFav: true },
-    { id: 5, codigo: 'JPY', nombre: 'Yen Japonés', flag: '🇯🇵', precio: 33.14, isFav: true },
-    { id: 6, codigo: 'ARS', nombre: 'Peso Argentino', flag: '🇦🇷', precio: 1.00, isFav: true },
-    { id: 7, codigo: 'CAD', nombre: 'Dólar Canadiense', flag: '🇨🇦', precio: 55.00, isFav: true },
-    { id: 8, codigo: 'CHF', nombre: 'Franco Suizo', flag: '🇨🇭', precio: 37.10, isFav: true },
-    { id: 9, codigo: 'AUD', nombre: 'Dólar Australiano', flag: '🇦🇺', precio: 1433.00, isFav: true }
+    { id: 1, codigo: 'USD', nombre: 'Dólar Estadounidense', flag: 'USD', precio: 1315.50, isFav: true },
+    { id: 2, codigo: 'EUR', nombre: 'Euro', flag: 'EUR', precio: 1423.80, isFav: true },
+    { id: 3, codigo: 'BRL', nombre: 'Real Brasileño', flag: 'BRL', precio: 234.10, isFav: true },
+    { id: 4, codigo: 'GBP', nombre: 'Libra Esterlina', flag: 'GBP', precio: 1677.00, isFav: true },
+    { id: 5, codigo: 'JPY', nombre: 'Yen Japonés', flag: 'JPY', precio: 33.14, isFav: true },
+    { id: 6, codigo: 'ARS', nombre: 'Peso Argentino', flag: 'ARS', precio: 1.00, isFav: true },
+    { id: 7, codigo: 'CAD', nombre: 'Dólar Canadiense', flag: 'CAD', precio: 55.00, isFav: true },
+    { id: 8, codigo: 'CHF', nombre: 'Franco Suizo', flag: 'CHF', precio: 37.10, isFav: true },
+    { id: 9, codigo: 'AUD', nombre: 'Dólar Australiano', flag: 'AUD', precio: 1433.00, isFav: true }
   ]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -171,7 +172,7 @@ export default function Favoritos() {
                   </td>
                   <td>
                     <div className="currency-info">
-                      <span className="flag-icon">{item.flag}</span>
+                      <span className="flag-icon"><CurrencyIcon code={item.flag} size={22} /></span>
                       <div className="currency-text">
                         <span className="currency-code">{item.codigo}</span>
                         <span className="currency-name">{item.nombre}</span>

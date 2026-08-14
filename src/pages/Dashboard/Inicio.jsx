@@ -58,11 +58,18 @@ export default function Inicio() {
     load();
   }, []);
 
-  const getRate = (code, tipo_mercado = null) => {
-    const found = rates.find(
+  const getRateObj = (code, tipo_mercado = null) =>
+    rates.find(
       (r) => r.codigo === code && (!tipo_mercado || r.tipo_mercado === tipo_mercado)
-    );
-    return found ? found.venta : 0;
+    ) || null;
+
+  const getRate = (code, tipo_mercado = null) => getRateObj(code, tipo_mercado)?.venta || 0;
+
+  const kpiRates = {
+    blue: getRateObj('USD', 'Informal'),
+    oficial: getRateObj('USD', 'Oficial'),
+    euro: getRateObj('EUR', 'Oficial'),
+    btc: getRateObj('BTC'),
   };
 
   const dolarBlue = getRate('USD', 'Informal') || 1540.0;
@@ -96,7 +103,7 @@ export default function Inicio() {
       <div className="quick-stats">
         {KPI_CARDS.map((kpi, i) => {
           const price = kpiValues[kpi.seed];
-          const variation = stableVariation(hashSeed(kpi.seed));
+          const variation = kpiRates[kpi.seed]?.variacion ?? stableVariation(hashSeed(kpi.seed));
           const isUp = variation >= 0;
           return (
             <div
@@ -154,7 +161,7 @@ export default function Inicio() {
 
           <div className="featured-list">
             {rates.slice(0, 4).map((item, i) => {
-              const variation = stableVariation(hashSeed(item.codigo, item.tipo_mercado || item.tipo || 'x'));
+              const variation = item.variacion ?? stableVariation(hashSeed(item.codigo, item.tipo_mercado || item.tipo || 'x'));
               const isUp = variation >= 0;
               return (
                 <div
