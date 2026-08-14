@@ -2,8 +2,8 @@
 // Centraliza todas las llamadas HTTP al backend y APIs de cotización en tiempo real.
 
 // Ruta relativa: en desarrollo Vite proxya /api al backend local (vite.config.js).
-// En producción apuntar a la URL real vía VITE_API_URL.
-const BASE_URL = import.meta.env.VITE_API_URL || '';
+// En producción usa VITE_API_URL si está seteada, si no apunta al backend de Render.
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'https://divise.onrender.com');
 
 /**
  * Helper genérico para fetch con JSON al backend propio.
